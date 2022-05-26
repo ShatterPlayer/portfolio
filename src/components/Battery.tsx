@@ -38,7 +38,7 @@ interface Props {
 function Battery({ children }: Props) {
   return (
     <BatteryContainer>
-      passion
+      {children}
       <VisibilityContainer
         initial={{ width: 0 }}
         animate={{ width: '100%' }}
@@ -47,7 +47,7 @@ function Battery({ children }: Props) {
           ease: 'anticipate',
         }}
       >
-        <BatteryFull>passion</BatteryFull>
+        <BatteryFull>{children}</BatteryFull>
       </VisibilityContainer>
     </BatteryContainer>
   )
