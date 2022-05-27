@@ -2,14 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
-import BatteryImg from '../images/battery.svg'
-import BatteryFullImg from '../images/battery-full.svg'
+import BatteryImg from '../images/battery.png'
+import BatteryFullImg from '../images/battery-full.png'
 
 const BatteryContainer = styled.span`
   position: relative;
   display: inline-block;
   background-image: url(${BatteryImg});
   background-size: 100% 100%;
+  line-height: 100px;
   padding-left: 15px;
   padding-right: 30px;
 `

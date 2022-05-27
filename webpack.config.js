@@ -22,7 +22,7 @@ module.exports = {
         type: 'asset/inline',
       },
       {
-        test: /\.(woff|woff2)$/,
+        test: /\.(woff|woff2|png)$/,
         use: {
           loader: 'url-loader',
         },
