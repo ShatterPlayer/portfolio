@@ -22,19 +22,19 @@ const theme = {
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Josefin Sans';
-    weight: normal;
+    font-weight: normal;
     src: url(${JosefinSansRegular}) format('woff2');
   }
 
   @font-face {
     font-family: 'Josefin Sans';
-    weight: bold;
+    font-weight: bold;
     src: url(${JosefinSansBold}) format('woff2');
   }
 
   @font-face {
     font-family: 'Kaushan Script';
-    weight: normal;
+    font-weight: normal;
     src: url(${KaushanScript}) format('woff2');
   }
 
