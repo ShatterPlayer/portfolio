@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Battery from '../Battery'
+import Headline from '../Headline'
 
 const Container = styled.header`
   height: 100vh;
@@ -11,18 +12,16 @@ const Container = styled.header`
   justify-content: center;
 `
 
-const HeaderText = styled.h1`
-  color: ${props => props.theme.colors.light};
-  text-align: center;
+const HeaderText = styled(Headline)`
   max-width: 800px;
-  font-size: 75px;
   line-height: 100px;
+  font-size: 75px;
 `
 
 function Intro() {
   return (
     <Container>
-      <HeaderText>
+      <HeaderText as="h1">
         Web Developer powered by <Battery>passion</Battery>
       </HeaderText>
     </Container>

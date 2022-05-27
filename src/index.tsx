@@ -8,6 +8,7 @@ import JosefinSansBold from './fonts/JosefinSans-Bold.woff2'
 import KaushanScript from './fonts/KaushanScript-Regular.woff2'
 
 import Intro from './components/sections/Intro'
+import AboutMe from './components/sections/AboutMe'
 
 const theme = {
   colors: {
@@ -46,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'Josefin Sans', sans-serif;
+    color: ${theme.colors.light};
   }
 `
 
@@ -53,6 +55,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Intro />
+      <AboutMe />
       <GlobalStyle />
     </ThemeProvider>
   )
