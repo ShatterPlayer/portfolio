@@ -6,7 +6,6 @@ import ContentContainer from '../ContentContainer'
 import Headline from '../Headline'
 
 import avatarImage from '../../images/avatar.png'
-import selectionImage from '../../images/recentTechSelection.svg'
 
 const Container = styled.section`
   background-color: ${props => props.theme.colors.green};
