@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useInView } from 'react-intersection-observer'
-import { motion, useAnimation } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 
 import ContentContainer from './ContentContainer'
 import Headline from './Headline'
@@ -36,35 +35,33 @@ const Image = styled(motion.img)`
   margin: 20px;
 `
 
+const childrenVariants: Variants = {
+  hidden: xOffset => ({
+    x: xOffset,
+  }),
+  visible: {
+    x: 0,
+    transition: {
+      type: 'spring',
+      duration: 0.5,
+    },
+  },
+}
+
 function Summary() {
-  const { ref, inView } = useInView({ threshold: 0.8 })
-  const controls = useAnimation()
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible')
-    }
-  })
-
   return (
     <Wrapper>
-      <Container ref={ref}>
-        <ContentPart
-          variants={{
-            hidden: {
-              x: -1000,
-            },
-            visible: {
-              x: 0,
-              transition: {
-                type: 'spring',
-                duration: 0.5,
-              },
-            },
-          }}
-          initial="hidden"
-          animate={controls}
-        >
+      <Container
+        as={motion.div}
+        transition={{ staggerChildren: 0.5 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{
+          once: true,
+          amount: 0.5,
+        }}
+      >
+        <ContentPart variants={childrenVariants} custom={-1000}>
           <EntrySentence>Hello, I'm Michał</EntrySentence>
           <Description>
             Open source enthusiast from Poland. Since 2018 I’ve been expanding
@@ -75,21 +72,8 @@ function Summary() {
           </Description>
         </ContentPart>
         <Image
-          variants={{
-            hidden: {
-              x: 1000,
-            },
-            visible: {
-              x: 0,
-              transition: {
-                type: 'spring',
-                duration: 0.5,
-                delay: 0.5,
-              },
-            },
-          }}
-          initial="hidden"
-          animate={controls}
+          variants={childrenVariants}
+          custom={1000}
           src={avatarImage}
           alt="avatar"
         />

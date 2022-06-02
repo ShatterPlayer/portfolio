@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { motion, useAnimation } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { motion, Variants } from 'framer-motion'
 
 import BatteryImg from '../images/battery.png'
 import BatteryFullImg from '../images/battery-full.png'
@@ -37,31 +36,29 @@ interface Props {
   children: string
 }
 
+const variants: Variants = {
+  hidden: {
+    width: 0,
+  },
+  visible: {
+    width: '100%',
+  },
+}
+
+const viewport = {
+  once: true,
+  amount: 1,
+}
+
 function Battery({ children }: Props) {
-  const { ref, inView } = useInView()
-  const controls = useAnimation()
-
-  useEffect(() => {
-    if (inView) {
-      controls.start('visible')
-    }
-  }, [inView])
-
   return (
     <BatteryContainer>
       {children}
       <VisibilityContainer
-        ref={ref}
-        variants={{
-          hidden: {
-            width: 0,
-          },
-          visible: {
-            width: '100%',
-          },
-        }}
+        variants={variants}
         initial="hidden"
-        animate={controls}
+        whileInView="visible"
+        viewport={viewport}
         transition={{
           duration: 3,
           ease: 'anticipate',
