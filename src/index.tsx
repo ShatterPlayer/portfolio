@@ -1,6 +1,6 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider } from 'styled-components'
+import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { createGlobalStyle } from 'styled-components'
 
 import JosefinSansRegular from './fonts/JosefinSans-Regular.woff2'
@@ -10,7 +10,7 @@ import KaushanScript from './fonts/KaushanScript-Regular.woff2'
 import Intro from './components/sections/Intro'
 import AboutMe from './components/sections/AboutMe'
 
-const theme = {
+const theme: DefaultTheme = {
   colors: {
     dark: '#073B4C',
     blue: '#118AB2',
