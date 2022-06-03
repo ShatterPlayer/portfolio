@@ -8,7 +8,7 @@ const TechHeadline = styled(Headline)`
   font-size: 50px;
 `
 
-const TechStackGrid = styled.div`
+const TechStackGrid = styled(motion.div)`
   padding: 30px;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
@@ -35,9 +35,11 @@ const RecentTechSelection = styled(motion.svg)`
 const lineVariants: Variants = {
   hidden: {
     pathLength: 0,
+    visibility: 'hidden',
   },
   visible: {
     pathLength: 1,
+    visibility: 'visible',
     transition: {
       type: 'spring',
       duration: 5,
@@ -45,30 +47,42 @@ const lineVariants: Variants = {
   },
 }
 
+const techVariants: Variants = {
+  hidden: {
+    scale: 0,
+  },
+
+  visible: {
+    scale: 1,
+  },
+}
+
 function TechStack() {
   return (
     <>
       <TechHeadline>Technologies I was recently up to</TechHeadline>
-      <TechStackGrid>
-        <div>React</div>
-        <div>Framer Motion</div>
-        <div>TypeScript</div>
-        <div>webpack</div>
-        <div>Service Workers</div>
-        <div>ExpressJS</div>
-        <div>Jest</div>
-        <div>Redux</div>
-        <div>Gatsby</div>
+      <TechStackGrid
+        initial="hidden"
+        whileInView="visible"
+        viewport={{
+          once: true,
+          amount: 0.5,
+        }}
+        transition={{ staggerChildren: 0.15 }}
+      >
+        <motion.div variants={techVariants}>React</motion.div>
+        <motion.div variants={techVariants}>Framer Motion</motion.div>
+        <motion.div variants={techVariants}>TypeScript</motion.div>
+        <motion.div variants={techVariants}>webpack</motion.div>
+        <motion.div variants={techVariants}>Service Workers</motion.div>
+        <motion.div variants={techVariants}>ExpressJS</motion.div>
+        <motion.div variants={techVariants}>Jest</motion.div>
+        <motion.div variants={techVariants}>Redux</motion.div>
+        <motion.div variants={techVariants}>Gatsby</motion.div>
         <RecentTechSelection
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 318.3 120.9"
           fill="none"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{
-            once: true,
-            amount: 0.5,
-          }}
         >
           <motion.path
             d="M63 198c-20-19-47-72 0-135 59-79 954-67 1027-33 73 35 67 129-230 112-133-7-61 76-165 82-198 12-599 21-629-24 0 0-35 43-63 158"
@@ -90,7 +104,7 @@ function TechStack() {
               visible: {
                 opacity: 1,
                 transition: {
-                  delay: 2.2,
+                  delay: 3.5,
                 },
               },
             }}
