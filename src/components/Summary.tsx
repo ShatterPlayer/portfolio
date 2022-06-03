@@ -9,6 +9,7 @@ import avatarImage from '../images/avatar.png'
 
 const Wrapper = styled.div`
   overflow-x: hidden;
+  width: 100%;
 `
 
 const Container = styled(ContentContainer)`

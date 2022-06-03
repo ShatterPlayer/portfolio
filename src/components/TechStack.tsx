@@ -6,6 +6,7 @@ import Headline from './Headline'
 
 const TechHeadline = styled(Headline)`
   font-size: 50px;
+  margin-bottom: 100px;
 `
 
 const TechStackGrid = styled(motion.div)`
@@ -14,12 +15,9 @@ const TechStackGrid = styled(motion.div)`
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   text-align: center;
+  position: relative;
   grid-gap: 45px 20px;
   margin-top: 30px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 26px;
   width: 700px;
   white-space: nowrap;
