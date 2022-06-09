@@ -12,6 +12,7 @@ const SectionWrapper = styled.section<Props>`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 50px 0;
 `
 
 export default SectionWrapper
