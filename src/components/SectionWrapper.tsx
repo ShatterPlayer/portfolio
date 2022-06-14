@@ -6,7 +6,7 @@ interface Props {
 
 const SectionWrapper = styled.section<Props>`
   background-color: ${props => props.theme.colors[props.backgroundColor]};
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;

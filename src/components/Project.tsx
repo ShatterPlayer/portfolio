@@ -1,18 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
+import { motion, Variants } from 'framer-motion'
 
 import ContentContainer from './ContentContainer'
 import Button from './Button'
-
-import quiseImage from '../images/quise.png'
-
 import Headline from './Headline'
+
+import {
+  movementVariants,
+  opacityVariants,
+  viewport,
+} from '../whileInViewSettings'
 
 const Container = styled(ContentContainer)`
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 25px 0;
+  width: 100%;
+  overflow-x: hidden;
 `
 
 const StyledHeadline = styled(Headline)`
@@ -31,7 +37,7 @@ const SubContainer = styled.div`
   margin: 20px 0;
 `
 
-const Image = styled.img`
+const Image = styled(motion.img)`
   width: 500px;
   margin-left: 100px;
 `
@@ -44,34 +50,58 @@ const List = styled.ul`
   font-size: 20px;
 `
 
-function Project() {
+interface Props {
+  name: string
+  description: string
+  technologies: string[]
+  image: string
+  githubProjectName: string
+  website: string
+}
+
+function Project({
+  name,
+  description,
+  technologies,
+  image,
+  githubProjectName,
+  website,
+}: Props) {
   return (
-    <Container as="article">
-      <StyledHeadline>Quise</StyledHeadline>
-      <p>Quiz app</p>
-      <p>
+    <Container
+      as={motion.article}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+    >
+      <StyledHeadline as={motion.h2} variants={opacityVariants}>
+        {name}
+      </StyledHeadline>
+      <motion.p variants={opacityVariants}>{description}</motion.p>
+      <motion.p variants={opacityVariants}>
         Status: <Green>Online</Green>
-      </p>
+      </motion.p>
       <SubContainer>
-        <div>
+        <motion.div variants={movementVariants} custom={-1000}>
           <ListHeader>Development stack</ListHeader>
           <List>
-            <li>React</li>
-            <li>Redux</li>
-            <li>Framer Motion</li>
-            <li>MongoDB (Atlas)</li>
-            <li>ExpressJS</li>
-            <li>JWT</li>
-            <li>styled-components</li>
+            {technologies.map(tech => (
+              <li key={tech}>{tech}</li>
+            ))}
           </List>
-        </div>
-        <Image src={quiseImage} alt="quise" />
+        </motion.div>
+        <Image
+          variants={movementVariants}
+          custom={1000}
+          src={image}
+          alt={name}
+        />
       </SubContainer>
-      <SubContainer>
-        <Button linkTo="https:github.com/ShatterPlayer/quise-frontend">
+      <SubContainer as={motion.div} variants={opacityVariants}>
+        <Button linkTo={'https:github.com/ShatterPlayer/' + githubProjectName}>
           Source code
         </Button>
-        <Button linkTo="https://quise.netlify.app">Check out</Button>
+        <Button linkTo={website}>Check out</Button>
       </SubContainer>
     </Container>
   )

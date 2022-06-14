@@ -7,6 +7,8 @@ import Headline from './Headline'
 
 import avatarImage from '../images/avatar.png'
 
+import { movementVariants } from '../whileInViewSettings'
+
 const Wrapper = styled.div`
   overflow-x: hidden;
   width: 100%;
@@ -36,19 +38,6 @@ const Image = styled(motion.img)`
   margin: 20px;
 `
 
-const childrenVariants: Variants = {
-  hidden: xOffset => ({
-    x: xOffset,
-  }),
-  visible: {
-    x: 0,
-    transition: {
-      type: 'spring',
-      duration: 0.5,
-    },
-  },
-}
-
 function Summary() {
   return (
     <Wrapper>
@@ -62,7 +51,7 @@ function Summary() {
           amount: 0.5,
         }}
       >
-        <ContentPart variants={childrenVariants} custom={-1000}>
+        <ContentPart variants={movementVariants} custom={-1000}>
           <EntrySentence>Hello, I'm Michał</EntrySentence>
           <Description>
             Open source enthusiast from Poland. Since 2018 I’ve been expanding
@@ -73,7 +62,7 @@ function Summary() {
           </Description>
         </ContentPart>
         <Image
-          variants={childrenVariants}
+          variants={movementVariants}
           custom={1000}
           src={avatarImage}
           alt="avatar"
