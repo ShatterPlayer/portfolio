@@ -1,10 +1,8 @@
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
-interface Props {
-  backgroundColor: 'dark' | 'blue' | 'green' | 'yellow' | 'light'
-}
-
-const SectionWrapper = styled.section<Props>`
+const SectionWrapper = styled.section<{
+  backgroundColor: keyof DefaultTheme['colors']
+}>`
   background-color: ${props => props.theme.colors[props.backgroundColor]};
   min-height: 100vh;
   width: 100%;

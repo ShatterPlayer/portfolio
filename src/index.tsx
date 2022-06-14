@@ -18,6 +18,7 @@ const theme: DefaultTheme = {
     green: '#06D6A0',
     yellow: '#FFD166',
     light: '#FFFFFF',
+    red: '#F25F5C',
   },
 }
 
