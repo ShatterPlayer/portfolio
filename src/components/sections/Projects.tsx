@@ -6,7 +6,7 @@ import Project from '../Project'
 
 function Projects() {
   return (
-    <SectionWrapper color="blue">
+    <SectionWrapper backgroundColor="blue">
       <Headline>Projects I've made</Headline>
       <Project />
     </SectionWrapper>

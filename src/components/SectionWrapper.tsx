@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 interface Props {
-  color: 'dark' | 'blue' | 'green' | 'yellow' | 'light'
+  backgroundColor: 'dark' | 'blue' | 'green' | 'yellow' | 'light'
 }
 
 const SectionWrapper = styled.section<Props>`
-  background-color: ${props => props.theme.colors[props.color]};
+  background-color: ${props => props.theme.colors[props.backgroundColor]};
   height: 100vh;
   width: 100%;
   display: flex;

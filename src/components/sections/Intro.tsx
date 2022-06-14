@@ -13,7 +13,7 @@ const HeaderText = styled(Headline)`
 
 function Intro() {
   return (
-    <SectionWrapper color="dark" as="header">
+    <SectionWrapper backgroundColor="dark" as="header">
       <HeaderText as="h1">
         Web Developer powered by <Battery>passion</Battery>
       </HeaderText>
