@@ -1,7 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { DefaultTheme } from 'styled-components'
 
-const ButtonElement = styled.a`
+interface ButtonElementProps {
+  color: keyof DefaultTheme['colors']
+}
+
+const ButtonElement = styled.a<ButtonElementProps>`
   position: relative;
   display: inline-block;
   padding: 10px 15px;
@@ -30,7 +34,7 @@ const ButtonElement = styled.a`
   }
 
   :hover {
-    color: ${({ theme }) => theme.colors.blue};
+    color: ${({ theme, color }) => theme.colors[color]};
   }
 
   :hover:before {
@@ -38,14 +42,14 @@ const ButtonElement = styled.a`
   }
 `
 
-interface Props {
+interface Props extends ButtonElementProps {
   children: string
   linkTo: string
 }
 
-function Button({ children, linkTo, ...props }: Props) {
+function Button({ children, linkTo, color, ...props }: Props) {
   return (
-    <ButtonElement target="blank" href={linkTo} {...props}>
+    <ButtonElement color={color} target="blank" href={linkTo} {...props}>
       {children}
     </ButtonElement>
   )

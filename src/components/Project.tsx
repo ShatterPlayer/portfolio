@@ -91,10 +91,15 @@ function Project({
         />
       </SubContainer>
       <SubContainer as={motion.div} variants={opacityVariants}>
-        <Button linkTo={'https:github.com/ShatterPlayer/' + githubProjectName}>
+        <Button
+          color="blue"
+          linkTo={'https:github.com/ShatterPlayer/' + githubProjectName}
+        >
           Source code
         </Button>
-        <Button linkTo={website}>Check out</Button>
+        <Button color="blue" linkTo={website}>
+          Check out
+        </Button>
       </SubContainer>
     </Container>
   )
