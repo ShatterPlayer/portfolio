@@ -49,7 +49,7 @@ interface Props extends ButtonElementProps {
 
 function Button({ children, linkTo, color, ...props }: Props) {
   return (
-    <ButtonElement color={color} target="blank" href={linkTo} {...props}>
+    <ButtonElement color={color} target="_blank" href={linkTo} {...props}>
       {children}
     </ButtonElement>
   )
