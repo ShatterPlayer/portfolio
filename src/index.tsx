@@ -9,6 +9,7 @@ import KaushanScript from './fonts/KaushanScript-Regular.woff2'
 
 import Intro from './components/sections/Intro'
 import AboutMe from './components/sections/AboutMe'
+import Projects from './components/sections/Projects'
 
 const theme: DefaultTheme = {
   colors: {
@@ -17,6 +18,7 @@ const theme: DefaultTheme = {
     green: '#06D6A0',
     yellow: '#FFD166',
     light: '#FFFFFF',
+    red: '#F25F5C',
   },
 }
 
@@ -56,6 +58,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <Intro />
       <AboutMe />
+      <Projects />
+
       <GlobalStyle />
     </ThemeProvider>
   )
