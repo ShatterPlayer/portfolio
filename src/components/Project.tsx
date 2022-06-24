@@ -25,10 +25,6 @@ const StyledHeadline = styled(Headline)`
   font-size: 40px;
 `
 
-const Green = styled.span`
-  color: ${({ theme }) => theme.colors.green};
-`
-
 const SubContainer = styled.div`
   display: flex;
   align-items: center;
@@ -78,9 +74,6 @@ function Project({
         {name}
       </StyledHeadline>
       <motion.p variants={opacityVariants}>{description}</motion.p>
-      <motion.p variants={opacityVariants}>
-        Status: <Green>Online</Green>
-      </motion.p>
       <SubContainer>
         <motion.div variants={movementVariants} custom={-1000}>
           <ListHeader>Development stack</ListHeader>
