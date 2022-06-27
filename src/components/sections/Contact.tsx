@@ -33,6 +33,13 @@ const Image = styled.img`
   width: 70px;
   height: 70px;
   margin: 20px;
+  transition: 0.3s;
+`
+
+const Social = styled.a`
+  :hover img {
+    transform: scale(1.2) rotate(5deg);
+  }
 `
 
 function Contact() {
@@ -60,12 +67,15 @@ function Contact() {
         </motion.span>
       </TextWrapper>
       <SocialsContainer variants={opacityVariants}>
-        <a href="https://www.linkedin.com/in/shatterplayer/" target="_blank">
+        <Social
+          href="https://www.linkedin.com/in/shatterplayer/"
+          target="_blank"
+        >
           <Image src={linkedinImage} alt="linkedin" />
-        </a>
-        <a href="https://github.com/ShatterPlayer" target="_blank">
+        </Social>
+        <Social href="https://github.com/ShatterPlayer" target="_blank">
           <Image src={githubImage} alt="github" />
-        </a>
+        </Social>
       </SocialsContainer>
     </SectionWrapper>
   )
