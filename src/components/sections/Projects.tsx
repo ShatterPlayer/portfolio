@@ -9,7 +9,7 @@ import fastmemeImage from '../../images/fastmeme.png'
 
 function Projects() {
   return (
-    <SectionWrapper backgroundColor="blue">
+    <SectionWrapper bgcolor="blue">
       <Headline>Projects I've made</Headline>
       <Project
         name="Quise"

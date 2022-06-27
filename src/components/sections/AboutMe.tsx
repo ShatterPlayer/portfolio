@@ -8,11 +8,11 @@ import SectionWrapper from '../SectionWrapper'
 function AboutMe() {
   return (
     <>
-      <SectionWrapper backgroundColor="green">
+      <SectionWrapper bgcolor="green">
         <Headline>About Me</Headline>
         <Summary />
       </SectionWrapper>
-      <SectionWrapper backgroundColor="green">
+      <SectionWrapper bgcolor="green">
         <TechStack />
       </SectionWrapper>
     </>

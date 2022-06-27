@@ -45,7 +45,7 @@ const Social = styled.a`
 function Contact() {
   return (
     <SectionWrapper
-      backgroundColor="dark"
+      bgcolor="dark"
       as={motion.section}
       initial="hidden"
       whileInView="visible"

@@ -1,9 +1,9 @@
 import styled, { DefaultTheme } from 'styled-components'
 
 const SectionWrapper = styled.section<{
-  backgroundColor: keyof DefaultTheme['colors']
+  bgcolor: keyof DefaultTheme['colors']
 }>`
-  background-color: ${props => props.theme.colors[props.backgroundColor]};
+  background-color: ${props => props.theme.colors[props.bgcolor]};
   min-height: 100vh;
   width: 100%;
   display: flex;
