@@ -1,5 +1,4 @@
 import styled, { DefaultTheme } from 'styled-components'
-
 const SectionWrapper = styled.section<{
   bgcolor: keyof DefaultTheme['colors']
 }>`
@@ -10,7 +9,11 @@ const SectionWrapper = styled.section<{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 50px 0;
+  padding: 50px;
+
+  @media (max-width: 770px) {
+    padding: 25px;
+  }
 `
 
 export default SectionWrapper

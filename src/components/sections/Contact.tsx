@@ -20,6 +20,7 @@ const TextWrapper = styled.div`
 
 const TextParagraph = styled(motion.p)`
   font-size: 35px;
+  text-align: center;
 `
 
 const SocialsContainer = styled(motion.div)`

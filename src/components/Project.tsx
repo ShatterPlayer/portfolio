@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { motion, Variants } from 'framer-motion'
 
-import ContentContainer from './ContentContainer'
 import Button from './Button'
 import Headline from './Headline'
 
@@ -12,7 +11,7 @@ import {
   viewport,
 } from '../whileInViewSettings'
 
-const Container = styled(ContentContainer)`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,22 +27,44 @@ const StyledHeadline = styled(Headline)`
 const SubContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  justify-content: space-between;
+  width: 770px;
+  max-width: 100%;
   margin: 20px 0;
+
+  @media (max-width: 770px) {
+    flex-direction: column-reverse;
+  }
+`
+
+const ButtonsContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  max-width: 100%;
+  flex-wrap: wrap;
 `
 
 const Image = styled(motion.img)`
-  width: 500px;
-  margin-left: 100px;
+  width: 50%;
+  min-width: 300px;
+  margin: 20px;
 `
 
 const ListHeader = styled.h3`
   font-size: 30px;
+
+  @media (max-width: 1000px) {
+    font-size: 20px;
+  }
 `
 
 const List = styled.ul`
   font-size: 20px;
+  @media (max-width: 1000px) {
+    font-size: 16px;
+  }
 `
 
 interface Props {
@@ -90,7 +111,7 @@ function Project({
           alt={name}
         />
       </SubContainer>
-      <SubContainer as={motion.div} variants={opacityVariants}>
+      <ButtonsContainer variants={opacityVariants}>
         <Button
           color="blue"
           linkTo={'https:github.com/ShatterPlayer/' + githubProjectName}
@@ -100,7 +121,7 @@ function Project({
         <Button color="blue" linkTo={website}>
           Check out
         </Button>
-      </SubContainer>
+      </ButtonsContainer>
     </Container>
   )
 }

@@ -1,41 +1,58 @@
 import React from 'react'
 import styled from 'styled-components'
-import { motion, Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
 
-import ContentContainer from './ContentContainer'
 import Headline from './Headline'
 
 import avatarImage from '../images/avatar.png'
 
 import { movementVariants } from '../whileInViewSettings'
 
+const widthBreakpoint = 770
+
 const Wrapper = styled.div`
   overflow-x: hidden;
   width: 100%;
 `
 
-const Container = styled(ContentContainer)`
+const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 20px 0;
+
+  @media (max-width: ${widthBreakpoint}px) {
+    flex-direction: column-reverse;
+  }
 `
 
 const ContentPart = styled(motion.div)`
-  width: 564px;
   margin: 20px;
+  width: 65%;
+
+  @media (max-width: ${widthBreakpoint}px) {
+    margin: 0;
+    width: 100%;
+  }
 `
 
 const EntrySentence = styled(Headline)`
-  font-size: 50px;
+  font-size: 40px;
+  @media (max-width: ${widthBreakpoint}px) {
+    font-size: 30px;
+  }
 `
 
 const Description = styled.p`
   font-size: 20px;
   text-align: center;
+  text-align: justify;
 `
 
 const Image = styled(motion.img)`
   margin: 20px;
+  width: 35%;
+  min-width: 300px;
 `
 
 function Summary() {
@@ -43,7 +60,10 @@ function Summary() {
     <Wrapper>
       <Container
         as={motion.div}
-        transition={{ staggerChildren: 0.5 }}
+        transition={{
+          staggerChildren: 0.5,
+          staggerDirection: window.innerWidth > widthBreakpoint ? 1 : -1,
+        }}
         initial="hidden"
         whileInView="visible"
         viewport={{

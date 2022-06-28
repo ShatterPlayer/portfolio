@@ -4,12 +4,9 @@ import { motion, Variants } from 'framer-motion'
 
 import Headline from './Headline'
 
-const TechHeadline = styled(Headline)`
-  font-size: 50px;
-  margin-bottom: 100px;
-`
+import useViewportWidth from '../hooks/useViewportWidth'
 
-const TechStackGrid = styled(motion.div)`
+const TechStackGrid = styled(motion.div)<{ viewportwidth: number }>`
   padding: 30px;
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);
@@ -21,6 +18,10 @@ const TechStackGrid = styled(motion.div)`
   font-size: 26px;
   width: 700px;
   white-space: nowrap;
+
+  @media (max-width: 800px) {
+    transform: scale(${({ viewportwidth }) => viewportwidth / 800});
+  }
 `
 
 const RecentTechSelection = styled(motion.svg)`
@@ -56,9 +57,11 @@ const techVariants: Variants = {
 }
 
 function TechStack() {
+  const width = useViewportWidth()
+
   return (
     <>
-      <TechHeadline>Technologies I was recently up to</TechHeadline>
+      <Headline>Technologies I was recently up to</Headline>
       <TechStackGrid
         initial="hidden"
         whileInView="visible"
@@ -67,6 +70,7 @@ function TechStack() {
           amount: 0.5,
         }}
         transition={{ staggerChildren: 0.15 }}
+        viewportwidth={width}
       >
         <motion.div variants={techVariants}>React</motion.div>
         <motion.div variants={techVariants}>Framer Motion</motion.div>
