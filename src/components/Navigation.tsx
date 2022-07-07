@@ -38,6 +38,11 @@ const Menu = styled.ul<MenuProps>`
   `}
 `
 
+interface MenuProps {
+  bordercolor?: keyof DefaultTheme['colors']
+  borderhidden?: boolean
+}
+
 const MenuOutline = styled(Menu)<MenuProps>`
   position: absolute;
   top: 0;
@@ -80,9 +85,24 @@ const ProgressOutline = styled.div`
   }
 `
 
-interface MenuProps {
-  bordercolor?: keyof DefaultTheme['colors']
-  borderhidden?: boolean
+function Outline({ bordercolor }: Pick<MenuProps, 'bordercolor'>) {
+  return (
+    <MenuOutline bordercolor={bordercolor}>
+      <MenuItemsJoin />
+      <li>
+        <MenuItem as="span" />
+      </li>
+      <MenuItemsJoin />
+      <li>
+        <MenuItem as="span" />
+      </li>
+      <MenuItemsJoin />
+      <li>
+        <MenuItem as="span" />
+      </li>
+      <MenuItemsJoin />
+    </MenuOutline>
+  )
 }
 
 function Navigation() {
@@ -105,38 +125,10 @@ function Navigation() {
           <MenuItemsJoin />
         </Menu>
 
-        <MenuOutline bordercolor="light">
-          <MenuItemsJoin />
-          <li>
-            <MenuItem as="span" />
-          </li>
-          <MenuItemsJoin />
-          <li>
-            <MenuItem as="span" />
-          </li>
-          <MenuItemsJoin />
-          <li>
-            <MenuItem as="span" />
-          </li>
-          <MenuItemsJoin />
-        </MenuOutline>
+        <Outline bordercolor="light" />
 
         <ProgressOutline>
-          <Menu bordercolor="yellow">
-            <MenuItemsJoin />
-            <li>
-              <MenuItem as="span" />
-            </li>
-            <MenuItemsJoin />
-            <li>
-              <MenuItem as="span" />
-            </li>
-            <MenuItemsJoin />
-            <li>
-              <MenuItem as="span" />
-            </li>
-            <MenuItemsJoin />
-          </Menu>
+          <Outline bordercolor="yellow" />
         </ProgressOutline>
       </MenuContainer>
     </Nav>
