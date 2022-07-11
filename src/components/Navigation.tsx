@@ -16,10 +16,14 @@ const Nav = styled.nav`
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
 `
 const MenuContainer = styled.div`
+  --menu-item-width: 120px;
+  --menu-items-count: 3;
+  --menu-item-join-width: calc(
+    (100% - 3 * var(--menu-item-width)) / (var(--menu-items-count) + 1)
+  );
+
   position: relative;
 `
-
-const menuItemWidth = 120
 
 const Menu = styled.ul<MenuProps>`
   list-style: none;
@@ -51,7 +55,7 @@ const MenuOutline = styled(Menu)<MenuProps>`
 `
 
 const MenuItem = styled.a`
-  width: ${menuItemWidth}px;
+  width: var(--menu-item-width);
   height: 45px;
   display: flex;
   align-items: center;
@@ -64,18 +68,22 @@ const MenuItem = styled.a`
 `
 
 const MenuItemsJoin = styled.li`
-  width: calc((100% - 3 * ${menuItemWidth}px) / 4);
+  width: var(--menu-item-join-width);
   height: 5px;
   border-bottom: 5px solid ${({ theme }) => theme.colors.light};
 `
 
-const ProgressOutline = styled.div`
+const ProgressOutline = styled.div<{ sectionNumber: number }>`
   position: absolute;
   top: 0;
   left: 0;
   overflow: hidden;
   height: 100%;
-  width: calc(50% + ${menuItemWidth}px + (100% - 3 * ${menuItemWidth}px) / 4);
+  max-width: 100%;
+  width: ${({ sectionNumber }) => `calc(
+    (var(--menu-item-join-width) + var(--menu-item-width)) * ${sectionNumber} -
+      var(--menu-item-width)/2
+  )`};
   z-index: -1;
 
   & ${Menu} {
@@ -127,7 +135,7 @@ function Navigation() {
 
         <Outline bordercolor="light" />
 
-        <ProgressOutline>
+        <ProgressOutline sectionNumber={2}>
           <Outline bordercolor="yellow" />
         </ProgressOutline>
       </MenuContainer>
