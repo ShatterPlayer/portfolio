@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
+
+import { Context } from './Context'
 
 const Nav = styled.nav`
   display: flex;
@@ -85,6 +87,7 @@ const ProgressOutline = styled.div<{ sectionNumber: number }>`
       var(--menu-item-width)/2
   )`};
   z-index: -1;
+  transition: width 0.5s ease-in-out;
 
   & ${Menu} {
     position: absolute;
@@ -114,6 +117,8 @@ function Outline({ bordercolor }: Pick<MenuProps, 'bordercolor'>) {
 }
 
 function Navigation() {
+  const { currentSection } = useContext(Context)
+
   return (
     <Nav>
       <MenuContainer>
@@ -135,7 +140,7 @@ function Navigation() {
 
         <Outline bordercolor="light" />
 
-        <ProgressOutline sectionNumber={2}>
+        <ProgressOutline sectionNumber={currentSection}>
           <Outline bordercolor="yellow" />
         </ProgressOutline>
       </MenuContainer>

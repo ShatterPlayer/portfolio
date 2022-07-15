@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { motion } from 'framer-motion'
 
 import SectionWrapper from '../SectionWrapper'
 import Headline from '../Headline'
 import Project from '../Project'
+import { Context } from '../Context'
 
 import quiseImage from '../../images/quise.png'
 import fastmemeImage from '../../images/fastmeme.png'
 
 function Projects() {
+  const { setCurrentSection } = useContext(Context)
+
   return (
-    <SectionWrapper bgcolor="blue">
+    <SectionWrapper
+      bgcolor="blue"
+      as={motion.article}
+      onViewportEnter={() => setCurrentSection(2)}
+      viewport={{ amount: 0.1 }}
+    >
       <Headline>Projects I've made</Headline>
       <Project
         name="Quise"
