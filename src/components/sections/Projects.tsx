@@ -13,12 +13,7 @@ function Projects() {
   const { setCurrentSection } = useContext(Context)
 
   return (
-    <SectionWrapper
-      bgcolor="blue"
-      as={motion.article}
-      onViewportEnter={() => setCurrentSection(2)}
-      viewport={{ amount: 0.1 }}
-    >
+    <SectionWrapper bgcolor="blue" data-page-section>
       <Headline>Projects I've made</Headline>
       <Project
         name="Quise"

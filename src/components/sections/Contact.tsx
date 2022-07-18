@@ -48,47 +48,41 @@ function Contact() {
   const { setCurrentSection } = useContext(Context)
 
   return (
-    <motion.article
-      onViewportEnter={() => setCurrentSection(3)}
-      viewport={{ amount: 0.2 }}
+    <SectionWrapper
+      bgcolor="dark"
+      as={motion.section}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+      transition={{ staggerChildren: 0.1 }}
+      data-page-section
     >
-      <SectionWrapper
-        bgcolor="dark"
-        as={motion.section}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewport}
-        transition={{ staggerChildren: 0.1 }}
-      >
-        <Headline as={motion.h2} variants={opacityVariants}>
-          Contact
-        </Headline>
-        <TextWrapper>
-          <TextParagraph variants={opacityVariants}>
-            Any questions?
-          </TextParagraph>
-          <TextParagraph variants={opacityVariants}>
-            Feel free to send me an e-mail!
-          </TextParagraph>
-          <motion.span variants={opacityVariants}>
-            <Button color="dark" linkTo="mailto:michalk101010@gmail.com">
-              Reach me out
-            </Button>
-          </motion.span>
-        </TextWrapper>
-        <SocialsContainer variants={opacityVariants}>
-          <Social
-            href="https://www.linkedin.com/in/shatterplayer/"
-            target="_blank"
-          >
-            <Image src={linkedinImage} alt="linkedin" />
-          </Social>
-          <Social href="https://github.com/ShatterPlayer" target="_blank">
-            <Image src={githubImage} alt="github" />
-          </Social>
-        </SocialsContainer>
-      </SectionWrapper>
-    </motion.article>
+      <Headline as={motion.h2} variants={opacityVariants}>
+        Contact
+      </Headline>
+      <TextWrapper>
+        <TextParagraph variants={opacityVariants}>Any questions?</TextParagraph>
+        <TextParagraph variants={opacityVariants}>
+          Feel free to send me an e-mail!
+        </TextParagraph>
+        <motion.span variants={opacityVariants}>
+          <Button color="dark" linkTo="mailto:michalk101010@gmail.com">
+            Reach me out
+          </Button>
+        </motion.span>
+      </TextWrapper>
+      <SocialsContainer variants={opacityVariants}>
+        <Social
+          href="https://www.linkedin.com/in/shatterplayer/"
+          target="_blank"
+        >
+          <Image src={linkedinImage} alt="linkedin" />
+        </Social>
+        <Social href="https://github.com/ShatterPlayer" target="_blank">
+          <Image src={githubImage} alt="github" />
+        </Social>
+      </SocialsContainer>
+    </SectionWrapper>
   )
 }
 

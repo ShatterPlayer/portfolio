@@ -1,8 +1,5 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
-
-import { Context } from './Context'
-
 const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -117,7 +114,50 @@ function Outline({ bordercolor }: Pick<MenuProps, 'bordercolor'>) {
 }
 
 function Navigation() {
-  const { currentSection } = useContext(Context)
+  const [currentSection, setCurrentSection] = useState(0)
+
+  const pageSections = useRef<{ offsetTop: number }[]>([])
+
+  const handleScroll = () => {
+    const scrollTopMiddle = window.scrollY + window.innerHeight / 2
+    let sectionNumber = 0
+
+    for (let i = 0; i < pageSections.current.length; i++) {
+      if (scrollTopMiddle > pageSections.current[i].offsetTop) {
+        sectionNumber = i
+      } else {
+        break
+      }
+    }
+
+    const maxScrollPosition =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight
+
+    // If the user is at the bottom of the page, set the current section to the last section number + 1
+    // Progress bar will be at the very end of the menu
+    if (maxScrollPosition <= window.scrollY) {
+      sectionNumber = pageSections.current.length
+    }
+
+    setCurrentSection(sectionNumber)
+  }
+
+  useEffect(() => {
+    const pageSectionsElements = document.querySelectorAll(
+      '[data-page-section]'
+    )
+    pageSectionsElements.forEach(pageSection => {
+      pageSections.current.push({
+        offsetTop: pageSection.getBoundingClientRect().top + window.scrollY,
+      })
+    })
+    document.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => {
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <Nav>
