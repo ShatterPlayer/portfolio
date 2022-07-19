@@ -93,22 +93,23 @@ const ProgressOutline = styled.div<{ sectionNumber: number }>`
   }
 `
 
+const menuItems = ['About me', 'Projects', 'Contact']
+const menuItemsAnchors = menuItems.map(
+  item => `#${item.replace(/\s/g, '').toLowerCase()}`
+)
+
 function Outline({ bordercolor }: Pick<MenuProps, 'bordercolor'>) {
   return (
     <MenuOutline bordercolor={bordercolor}>
       <MenuItemsJoin />
-      <li>
-        <MenuItem as="span" />
-      </li>
-      <MenuItemsJoin />
-      <li>
-        <MenuItem as="span" />
-      </li>
-      <MenuItemsJoin />
-      <li>
-        <MenuItem as="span" />
-      </li>
-      <MenuItemsJoin />
+      {menuItems.map(item => (
+        <React.Fragment key={item}>
+          <li>
+            <MenuItem as="span" />
+          </li>
+          <MenuItemsJoin />
+        </React.Fragment>
+      ))}
     </MenuOutline>
   )
 }
@@ -173,18 +174,14 @@ function Navigation() {
       <MenuContainer>
         <Menu borderhidden>
           <MenuItemsJoin />
-          <li>
-            <MenuItem href="#">About me</MenuItem>
-          </li>
-          <MenuItemsJoin />
-          <li>
-            <MenuItem href="#">Projects</MenuItem>
-          </li>
-          <MenuItemsJoin />
-          <li>
-            <MenuItem href="#">Contact</MenuItem>
-          </li>
-          <MenuItemsJoin />
+          {menuItems.map((item, index) => (
+            <React.Fragment key={item}>
+              <li>
+                <MenuItem href={menuItemsAnchors[index]}>{item}</MenuItem>
+              </li>
+              <MenuItemsJoin />
+            </React.Fragment>
+          ))}
         </Menu>
 
         <Outline bordercolor="light" />
