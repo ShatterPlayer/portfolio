@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
+
 const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -24,52 +25,46 @@ const MenuContainer = styled.div`
   position: relative;
 `
 
-const Menu = styled.ul<MenuProps>`
+const Menu = styled.ul`
   list-style: none;
   display: flex;
   align-items: center;
   width: 80vw;
-
-  ${({ borderhidden, theme, bordercolor }) =>
-    `
-    & ${MenuItem},
-    & ${MenuItemsJoin} {
-      border-color: ${
-        borderhidden ? 'transparent' : theme.colors[bordercolor ?? 'light']
-      };
-    }
-  `}
 `
 
-interface MenuProps {
-  bordercolor?: keyof DefaultTheme['colors']
-  borderhidden?: boolean
-}
-
-const MenuOutline = styled(Menu)<MenuProps>`
+const MenuOutline = styled(Menu)<OutlineProps>`
   position: absolute;
   top: 0;
   left: 0;
   z-index: -2;
+
+  ${({ bordercolor, theme }) => `
+    & ${MenuItem} {
+      border: 5px solid ${theme.colors[bordercolor]};
+    }
+
+    & ${MenuItemsJoin} {
+      border-bottom: 5px solid ${theme.colors[bordercolor]};
+    }
+  `}
 `
 
-const MenuItem = styled.a`
+const MenuItem = styled.a<{ active?: boolean }>`
   width: var(--menu-item-width);
   height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 5px solid ${({ theme }) => theme.colors.light};
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  font-weight: ${({ active }) => (active ? '900' : 'normal')};
 `
 
 const MenuItemsJoin = styled.li`
   width: var(--menu-item-join-width);
   height: 5px;
-  border-bottom: 5px solid ${({ theme }) => theme.colors.light};
 `
 
 const ProgressOutline = styled.div<{ sectionNumber: number }>`
@@ -84,7 +79,7 @@ const ProgressOutline = styled.div<{ sectionNumber: number }>`
       var(--menu-item-width)/2
   )`};
   z-index: -1;
-  transition: width 0.5s ease-in-out;
+  transition: width 0.4s ease-in-out;
 
   & ${Menu} {
     position: absolute;
@@ -98,7 +93,11 @@ const menuItemsAnchors = menuItems.map(
   item => `#${item.replace(/\s/g, '').toLowerCase()}`
 )
 
-function Outline({ bordercolor }: Pick<MenuProps, 'bordercolor'>) {
+interface OutlineProps {
+  bordercolor: keyof DefaultTheme['colors']
+}
+
+function Outline({ bordercolor }: OutlineProps) {
   return (
     <MenuOutline bordercolor={bordercolor}>
       <MenuItemsJoin />
@@ -158,26 +157,34 @@ function Navigation() {
 
   useEffect(() => {
     window.addEventListener('load', calculateSectionsPositions)
+    window.addEventListener('load', handleScroll)
     window.addEventListener('resize', calculateSectionsPositions)
 
     document.addEventListener('scroll', handleScroll)
-    handleScroll()
     return () => {
       document.removeEventListener('scroll', handleScroll)
-      document.removeEventListener('load', calculateSectionsPositions)
-      document.removeEventListener('resize', calculateSectionsPositions)
+      window.removeEventListener('load', handleScroll)
+      window.removeEventListener('load', calculateSectionsPositions)
+      window.removeEventListener('resize', calculateSectionsPositions)
     }
   }, [])
 
   return (
     <Nav>
       <MenuContainer>
-        <Menu borderhidden>
+        <Menu>
           <MenuItemsJoin />
           {menuItems.map((item, index) => (
             <React.Fragment key={item}>
               <li>
-                <MenuItem href={menuItemsAnchors[index]}>{item}</MenuItem>
+                <MenuItem
+                  active={
+                    Math.min(currentSection, menuItems.length) === index + 1
+                  }
+                  href={menuItemsAnchors[index]}
+                >
+                  {item}
+                </MenuItem>
               </li>
               <MenuItemsJoin />
             </React.Fragment>
