@@ -143,19 +143,28 @@ function Navigation() {
     setCurrentSection(sectionNumber)
   }
 
-  useEffect(() => {
+  const calculateSectionsPositions = () => {
     const pageSectionsElements = document.querySelectorAll(
       '[data-page-section]'
     )
+    pageSections.current = []
     pageSectionsElements.forEach(pageSection => {
       pageSections.current.push({
         offsetTop: pageSection.getBoundingClientRect().top + window.scrollY,
       })
     })
+  }
+
+  useEffect(() => {
+    window.addEventListener('load', calculateSectionsPositions)
+    window.addEventListener('resize', calculateSectionsPositions)
+
     document.addEventListener('scroll', handleScroll)
     handleScroll()
     return () => {
       document.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('load', calculateSectionsPositions)
+      document.removeEventListener('resize', calculateSectionsPositions)
     }
   }, [])
 
