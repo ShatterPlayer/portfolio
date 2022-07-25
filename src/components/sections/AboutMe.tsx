@@ -7,7 +7,7 @@ import SectionWrapper from '../SectionWrapper'
 
 function AboutMe() {
   return (
-    <>
+    <article data-page-section id="aboutme">
       <SectionWrapper bgcolor="green">
         <Headline>About Me</Headline>
         <Summary />
@@ -15,7 +15,7 @@ function AboutMe() {
       <SectionWrapper bgcolor="green">
         <TechStack />
       </SectionWrapper>
-    </>
+    </article>
   )
 }
 

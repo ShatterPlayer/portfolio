@@ -9,10 +9,10 @@ const SectionWrapper = styled.section<{
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 50px;
+  padding: 100px 50px;
 
   @media (max-width: 770px) {
-    padding: 25px;
+    padding: 100px 25px;
   }
 `
 

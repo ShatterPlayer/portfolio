@@ -11,6 +11,8 @@ import Intro from './components/sections/Intro'
 import AboutMe from './components/sections/AboutMe'
 import Projects from './components/sections/Projects'
 import Contact from './components/sections/Contact'
+import Navigation from './components/Navigation'
+import ContextProvider from './components/Context'
 
 const theme: DefaultTheme = {
   colors: {
@@ -48,6 +50,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Josefin Sans', sans-serif;
     color: ${theme.colors.light};
@@ -57,11 +63,13 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Intro />
-      <AboutMe />
-      <Projects />
-      <Contact />
-
+      <ContextProvider>
+        <Navigation />
+        <Intro />
+        <AboutMe />
+        <Projects />
+        <Contact />
+      </ContextProvider>
       <GlobalStyle />
     </ThemeProvider>
   )

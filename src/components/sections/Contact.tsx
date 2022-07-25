@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
@@ -10,6 +10,7 @@ import linkedinImage from '../../images/linkedin.png'
 import githubImage from '../../images/github.png'
 
 import { viewport, opacityVariants } from '../../whileInViewSettings'
+import { Context } from '../Context'
 
 const TextWrapper = styled.div`
   display: flex;
@@ -44,6 +45,8 @@ const Social = styled.a`
 `
 
 function Contact() {
+  const { setCurrentSection } = useContext(Context)
+
   return (
     <SectionWrapper
       bgcolor="dark"
@@ -52,6 +55,8 @@ function Contact() {
       whileInView="visible"
       viewport={viewport}
       transition={{ staggerChildren: 0.1 }}
+      data-page-section
+      id="contact"
     >
       <Headline as={motion.h2} variants={opacityVariants}>
         Contact
