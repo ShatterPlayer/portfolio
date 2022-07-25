@@ -13,7 +13,7 @@ function Projects() {
   const { setCurrentSection } = useContext(Context)
 
   return (
-    <SectionWrapper bgcolor="blue" data-page-section>
+    <SectionWrapper bgcolor="blue" data-page-section id="projects">
       <Headline>Projects I've made</Headline>
       <Project
         name="Quise"

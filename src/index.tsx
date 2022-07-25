@@ -50,6 +50,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: 'Josefin Sans', sans-serif;
     color: ${theme.colors.light};

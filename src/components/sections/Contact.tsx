@@ -56,6 +56,7 @@ function Contact() {
       viewport={viewport}
       transition={{ staggerChildren: 0.1 }}
       data-page-section
+      id="contact"
     >
       <Headline as={motion.h2} variants={opacityVariants}>
         Contact

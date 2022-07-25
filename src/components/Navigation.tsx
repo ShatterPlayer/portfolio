@@ -130,16 +130,6 @@ function Navigation() {
       }
     }
 
-    const maxScrollPosition =
-      document.documentElement.scrollHeight -
-      document.documentElement.clientHeight
-
-    // If the user is at the bottom of the page, set the current section to the last section number + 1
-    // Progress bar will be at the very end of the menu
-    if (maxScrollPosition <= window.scrollY) {
-      sectionNumber = pageSections.current.length
-    }
-
     setCurrentSection(sectionNumber)
   }
 
