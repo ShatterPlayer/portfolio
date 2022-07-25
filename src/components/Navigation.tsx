@@ -23,13 +23,22 @@ const MenuContainer = styled.div`
   );
 
   position: relative;
+
+  @media only screen and (max-width: 500px) {
+    --menu-item-width: 100px;
+  }
 `
 
 const Menu = styled.ul`
   list-style: none;
   display: flex;
   align-items: center;
-  width: 80vw;
+  width: 100vw;
+
+  @media only screen and (max-width: 500px) {
+    width: unset;
+    font-size: 15px;
+  }
 `
 
 const MenuOutline = styled(Menu)<OutlineProps>`
@@ -60,11 +69,19 @@ const MenuItem = styled.a<{ active?: boolean }>`
   text-decoration: none;
   color: inherit;
   font-weight: ${({ active }) => (active ? '900' : 'normal')};
+
+  @media only screen and (max-width: 500px) {
+    margin: 0 5px;
+  }
 `
 
 const MenuItemsJoin = styled.li`
   width: var(--menu-item-join-width);
   height: 5px;
+
+  @media only screen and (max-width: 500px) {
+    display: none;
+  }
 `
 
 const ProgressOutline = styled.div<{ sectionNumber: number }>`

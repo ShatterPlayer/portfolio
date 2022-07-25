@@ -12,7 +12,7 @@ const SectionWrapper = styled.section<{
   padding: 100px 50px;
 
   @media (max-width: 770px) {
-    padding: 25px;
+    padding: 100px 25px;
   }
 `
 
