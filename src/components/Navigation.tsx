@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
 
 const Nav = styled.nav`
@@ -130,82 +130,103 @@ function Outline({ bordercolor }: OutlineProps) {
   )
 }
 
-function Navigation() {
-  const [currentSection, setCurrentSection] = useState(0)
+class Navigation extends Component {
+  componentDidMount() {
+    window.addEventListener('load', this.calculateSectionsPositions)
+    window.addEventListener('load', this.handleScroll)
+    window.addEventListener('resize', this.handleResize)
+    document.addEventListener('scroll', this.handleScroll)
+  }
 
-  const pageSections = useRef<{ offsetTop: number }[]>([])
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.handleScroll)
+    window.removeEventListener('load', this.handleScroll)
+    window.removeEventListener('load', this.calculateSectionsPositions)
+    window.removeEventListener('resize', this.handleResize)
+  }
 
-  const handleScroll = () => {
-    const scrollTopMiddle = window.scrollY + window.innerHeight / 2
+  state = {
+    currentSection: 0,
+  }
+
+  pageSections: { offsetTop: number }[] = []
+
+  resizeTimeout: ReturnType<typeof setInterval> | null = null
+
+  handleScroll = () => {
+    const scrollMiddle = window.scrollY + window.innerHeight / 2
+
     let sectionNumber = 0
 
-    for (let i = 0; i < pageSections.current.length; i++) {
-      if (scrollTopMiddle > pageSections.current[i].offsetTop) {
+    for (let i = 0; i < this.pageSections.length; i++) {
+      if (scrollMiddle > this.pageSections[i].offsetTop) {
         sectionNumber = i
       } else {
         break
       }
     }
 
-    setCurrentSection(sectionNumber)
+    if (sectionNumber !== this.state.currentSection) {
+      // First section doesn't have a hash
+      if (sectionNumber === 0) {
+        history.pushState(null, '', '#')
+      } else {
+        history.pushState(null, '', menuItemsAnchors[sectionNumber - 1])
+      }
+
+      this.setState({ currentSection: sectionNumber })
+    }
   }
 
-  const calculateSectionsPositions = () => {
+  calculateSectionsPositions = () => {
     const pageSectionsElements = document.querySelectorAll(
       '[data-page-section]'
     )
-    pageSections.current = []
-    pageSectionsElements.forEach(pageSection => {
-      pageSections.current.push({
-        offsetTop: pageSection.getBoundingClientRect().top + window.scrollY,
-      })
-    })
+
+    this.pageSections = Array.from(pageSectionsElements).map(pageSection => ({
+      offsetTop: pageSection.getBoundingClientRect().top + window.scrollY,
+    }))
   }
 
-  useEffect(() => {
-    window.addEventListener('load', calculateSectionsPositions)
-    window.addEventListener('load', handleScroll)
-    window.addEventListener('resize', calculateSectionsPositions)
+  // Interval reduces unnecessary calculations while resizing the window
+  handleResize = () => {
+    clearInterval(this.resizeTimeout)
+    this.resizeTimeout = setTimeout(this.calculateSectionsPositions, 300)
+  }
 
-    document.addEventListener('scroll', handleScroll)
-    return () => {
-      document.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('load', handleScroll)
-      window.removeEventListener('load', calculateSectionsPositions)
-      window.removeEventListener('resize', calculateSectionsPositions)
-    }
-  }, [])
+  render() {
+    return (
+      <Nav>
+        <MenuContainer>
+          <Menu>
+            <MenuItemsJoin />
+            {menuItems.map((item, index) => (
+              <React.Fragment key={item}>
+                <li>
+                  <MenuItem
+                    active={
+                      Math.min(this.state.currentSection, menuItems.length) ===
+                      index + 1
+                    }
+                    href={menuItemsAnchors[index]}
+                  >
+                    {item}
+                  </MenuItem>
+                </li>
+                <MenuItemsJoin />
+              </React.Fragment>
+            ))}
+          </Menu>
 
-  return (
-    <Nav>
-      <MenuContainer>
-        <Menu>
-          <MenuItemsJoin />
-          {menuItems.map((item, index) => (
-            <React.Fragment key={item}>
-              <li>
-                <MenuItem
-                  active={
-                    Math.min(currentSection, menuItems.length) === index + 1
-                  }
-                  href={menuItemsAnchors[index]}
-                >
-                  {item}
-                </MenuItem>
-              </li>
-              <MenuItemsJoin />
-            </React.Fragment>
-          ))}
-        </Menu>
+          <Outline bordercolor="light" />
 
-        <Outline bordercolor="light" />
-
-        <ProgressOutline sectionNumber={currentSection}>
-          <Outline bordercolor="yellow" />
-        </ProgressOutline>
-      </MenuContainer>
-    </Nav>
-  )
+          <ProgressOutline sectionNumber={this.state.currentSection}>
+            <Outline bordercolor="yellow" />
+          </ProgressOutline>
+        </MenuContainer>
+      </Nav>
+    )
+  }
 }
 
 export default Navigation
