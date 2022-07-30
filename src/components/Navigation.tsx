@@ -12,7 +12,7 @@ const Nav = styled.nav`
   height: 70px;
   z-index: 99;
   backdrop-filter: blur(5px);
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.5);
 `
 const MenuContainer = styled.div`
@@ -134,8 +134,8 @@ class Navigation extends Component {
   componentDidMount() {
     window.addEventListener('load', this.calculateSectionsPositions)
     window.addEventListener('load', this.handleScroll)
-    window.addEventListener('resize', this.handleResize)
-    document.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('resize', this.handleResize, { passive: true })
+    document.addEventListener('scroll', this.handleScroll, { passive: true })
   }
 
   componentWillUnmount() {
@@ -154,6 +154,7 @@ class Navigation extends Component {
   resizeTimeout: ReturnType<typeof setInterval> | null = null
 
   handleScroll = () => {
+    console.log('scroll')
     const scrollMiddle = window.scrollY + window.innerHeight / 2
 
     let sectionNumber = 0

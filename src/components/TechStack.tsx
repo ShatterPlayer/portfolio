@@ -13,7 +13,7 @@ const TechStackGrid = styled(motion.div)<{ viewportwidth: number }>`
   grid-template-rows: repeat(3, 1fr);
   text-align: center;
   position: relative;
-  grid-gap: 45px 20px;
+  grid-gap: 35px 20px;
   margin-top: 30px;
   font-size: 26px;
   width: 700px;
