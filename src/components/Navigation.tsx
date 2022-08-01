@@ -132,8 +132,13 @@ function Outline({ bordercolor }: OutlineProps) {
 
 class Navigation extends Component {
   componentDidMount() {
-    window.addEventListener('load', this.calculateSectionsPositions)
-    window.addEventListener('load', this.handleScroll)
+    // "componentsmounted" event is fired when all components are mounted. This is custom event fired by AppWrapper.
+    // "load" event caused unexpected behavior in MS Edge
+    window.addEventListener(
+      'componentsmounted',
+      this.calculateSectionsPositions
+    )
+    window.addEventListener('componentsmounted', this.handleScroll)
 
     window.addEventListener('resize', this.handleResize, { passive: true })
     document.addEventListener('scroll', this.handleScroll, { passive: true })
@@ -141,8 +146,11 @@ class Navigation extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll)
-    window.removeEventListener('load', this.handleScroll)
-    window.removeEventListener('load', this.calculateSectionsPositions)
+    window.removeEventListener('componentsmounted', this.handleScroll)
+    window.removeEventListener(
+      'componentsmounted',
+      this.calculateSectionsPositions
+    )
     window.removeEventListener('resize', this.handleResize)
   }
 

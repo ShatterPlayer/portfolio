@@ -12,6 +12,7 @@ import AboutMe from './components/sections/AboutMe'
 import Projects from './components/sections/Projects'
 import Contact from './components/sections/Contact'
 import Navigation from './components/Navigation'
+import AppWrapper from './components/AppWrapper'
 
 const theme: DefaultTheme = {
   colors: {
@@ -62,12 +63,14 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Navigation />
-      <Intro />
-      <AboutMe />
-      <Projects />
-      <Contact />
-      <GlobalStyle />
+      <AppWrapper>
+        <Navigation />
+        <Intro />
+        <AboutMe />
+        <Projects />
+        <Contact />
+        <GlobalStyle />
+      </AppWrapper>
     </ThemeProvider>
   )
 }
