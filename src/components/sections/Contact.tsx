@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { motion } from 'framer-motion'
 
@@ -10,7 +10,6 @@ import linkedinImage from '../../images/linkedin.png'
 import githubImage from '../../images/github.png'
 
 import { viewport, opacityVariants } from '../../whileInViewSettings'
-import { Context } from '../Context'
 
 const TextWrapper = styled.div`
   display: flex;
@@ -45,8 +44,6 @@ const Social = styled.a`
 `
 
 function Contact() {
-  const { setCurrentSection } = useContext(Context)
-
   return (
     <SectionWrapper
       bgcolor="dark"

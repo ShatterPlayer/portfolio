@@ -134,6 +134,7 @@ class Navigation extends Component {
   componentDidMount() {
     window.addEventListener('load', this.calculateSectionsPositions)
     window.addEventListener('load', this.handleScroll)
+
     window.addEventListener('resize', this.handleResize, { passive: true })
     document.addEventListener('scroll', this.handleScroll, { passive: true })
   }
@@ -154,7 +155,6 @@ class Navigation extends Component {
   resizeTimeout: ReturnType<typeof setInterval> | null = null
 
   handleScroll = () => {
-    console.log('scroll')
     const scrollMiddle = window.scrollY + window.innerHeight / 2
 
     let sectionNumber = 0
@@ -191,6 +191,7 @@ class Navigation extends Component {
 
   // Interval reduces unnecessary calculations while resizing the window
   handleResize = () => {
+    console.log('resize')
     clearInterval(this.resizeTimeout)
     this.resizeTimeout = setTimeout(this.calculateSectionsPositions, 300)
   }
