@@ -1,5 +1,6 @@
-import React, { Component, useEffect, useRef, useState } from 'react'
+import React, { Component } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
+import throttle from '../utils/throttle'
 
 const Nav = styled.nav`
   display: flex;
@@ -141,11 +142,13 @@ class Navigation extends Component {
     window.addEventListener('componentsmounted', this.handleScroll)
 
     window.addEventListener('resize', this.handleResize, { passive: true })
-    document.addEventListener('scroll', this.handleScroll, { passive: true })
+    document.addEventListener('scroll', this.throttledHandleScroll, {
+      passive: true,
+    })
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.handleScroll)
+    document.removeEventListener('scroll', this.throttledHandleScroll)
     window.removeEventListener('componentsmounted', this.handleScroll)
     window.removeEventListener(
       'componentsmounted',
@@ -186,6 +189,8 @@ class Navigation extends Component {
       this.setState({ currentSection: sectionNumber })
     }
   }
+
+  throttledHandleScroll = throttle(this.handleScroll, 100)
 
   calculateSectionsPositions = () => {
     const pageSectionsElements = document.querySelectorAll(
