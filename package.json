@@ -25,15 +25,14 @@
   },
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack-dev-server --port 3000 --mode=development",
+    "dev": "webpack-dev-server --port 3000 --mode=development --devtool=inline-source-map",
     "prepare": "husky install",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "axios": "^0.27.2",
     "framer-motion": "^6.3.4",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
+    "preact": "^10.10.0",
     "styled-components": "^5.3.5"
   }
 }

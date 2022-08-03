@@ -5,10 +5,9 @@ const path = require('path')
 module.exports = {
   entry: './src/index.tsx',
   output: {
-    filename: 'index.[hash].js',
+    filename: 'index.[contenthash].js',
     path: path.resolve(__dirname, 'build'),
   },
-  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -40,6 +39,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      react: 'preact/compat',
+      'react-dom/test-utils': 'preact/test-utils',
+      'react-dom': 'preact/compat', // Must be below test-utils
+      'react/jsx-runtime': 'preact/jsx-runtime',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -47,4 +52,10 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
   ],
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
 }
