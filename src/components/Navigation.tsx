@@ -165,6 +165,8 @@ class Navigation extends Component {
 
   resizeTimeout: ReturnType<typeof setInterval> | null = null
 
+  sectionLock: number | null = null
+
   handleScroll = () => {
     const scrollMiddle = window.scrollY + window.innerHeight / 2
 
@@ -178,7 +180,14 @@ class Navigation extends Component {
       }
     }
 
-    if (sectionNumber !== this.state.currentSection) {
+    if (this.sectionLock === sectionNumber) {
+      this.sectionLock = null
+    }
+
+    if (
+      sectionNumber !== this.state.currentSection &&
+      this.sectionLock === null
+    ) {
       // First section doesn't have a hash
       if (sectionNumber === 0) {
         history.pushState(null, '', '#')
@@ -204,9 +213,17 @@ class Navigation extends Component {
 
   // Interval reduces unnecessary calculations while resizing the window
   handleResize = () => {
-    console.log('resize')
     clearInterval(this.resizeTimeout)
     this.resizeTimeout = setTimeout(this.calculateSectionsPositions, 300)
+  }
+
+  handleAnchorClick = (anchorIndex: number) => {
+    const currentSection = anchorIndex + 1
+    this.sectionLock = currentSection
+    this.setState({ currentSection })
+
+    // Disable section lock automatically after given time
+    setTimeout(() => (this.sectionLock = null), 2000)
   }
 
   render() {
@@ -224,6 +241,7 @@ class Navigation extends Component {
                       index + 1
                     }
                     href={menuItemsAnchors[index]}
+                    onClick={() => this.handleAnchorClick(index)}
                   >
                     {item}
                   </MenuItem>
