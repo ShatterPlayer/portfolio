@@ -4,8 +4,6 @@ import { motion } from 'framer-motion'
 
 import Headline from './Headline'
 
-import avatarImage from '../images/avatar.png'
-
 import { movementVariants } from '../whileInViewSettings'
 
 const widthBreakpoint = 770
@@ -84,7 +82,7 @@ function Summary() {
         <Image
           variants={movementVariants}
           custom={1000}
-          src={avatarImage}
+          src="https://avatars.githubusercontent.com/u/40521610"
           alt="avatar"
         />
       </Container>
