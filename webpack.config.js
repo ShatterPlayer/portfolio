@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { GenerateSW } = require('workbox-webpack-plugin')
 const path = require('path')
 
 module.exports = {
@@ -51,6 +52,17 @@ module.exports = {
       template: path.resolve(__dirname, 'src/index.html'),
     }),
     new CleanWebpackPlugin(),
+    new GenerateSW({
+      swDest: './sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+      runtimeCaching: [
+        {
+          urlPattern: new RegExp('.(html|js)'),
+          handler: 'StaleWhileRevalidate',
+        },
+      ],
+    }),
   ],
 
   optimization: {
