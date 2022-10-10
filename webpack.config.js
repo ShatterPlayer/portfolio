@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { GenerateSW } = require('workbox-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
 module.exports = {
@@ -62,6 +63,9 @@ module.exports = {
           handler: 'StaleWhileRevalidate',
         },
       ],
+    }),
+    new CopyPlugin({
+      patterns: [{ from: 'src/public', to: '.' }],
     }),
   ],
 
