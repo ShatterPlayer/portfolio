@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled, { DefaultTheme } from 'styled-components'
 import throttle from '../utils/throttle'
+import debounce from '../utils/debounce'
 
 const Nav = styled.nav`
   display: flex;
@@ -145,16 +146,21 @@ class Navigation extends Component {
     document.addEventListener('scroll', this.throttledHandleScroll, {
       passive: true,
     })
+    document.addEventListener('scroll', this.disableSectionLock, {
+      passive: true,
+    })
   }
 
   componentWillUnmount() {
-    document.removeEventListener('scroll', this.throttledHandleScroll)
     window.removeEventListener('componentsmounted', this.handleScroll)
     window.removeEventListener(
       'componentsmounted',
       this.calculateSectionsPositions
     )
     window.removeEventListener('resize', this.handleResize)
+
+    document.removeEventListener('scroll', this.throttledHandleScroll)
+    document.removeEventListener('scroll', this.disableSectionLock)
   }
 
   state = {
@@ -165,7 +171,11 @@ class Navigation extends Component {
 
   resizeTimeout: ReturnType<typeof setInterval> | null = null
 
-  sectionLock: number | null = null
+  sectionLock: boolean = false
+
+  disableSectionLock = debounce(() => {
+    this.sectionLock = false
+  }, 300)
 
   handleScroll = () => {
     const scrollMiddle = window.scrollY + window.innerHeight / 2
@@ -180,14 +190,7 @@ class Navigation extends Component {
       }
     }
 
-    if (this.sectionLock === sectionNumber) {
-      this.sectionLock = null
-    }
-
-    if (
-      sectionNumber !== this.state.currentSection &&
-      this.sectionLock === null
-    ) {
+    if (sectionNumber !== this.state.currentSection && !this.sectionLock) {
       // First section doesn't have a hash
       if (sectionNumber === 0) {
         history.pushState(null, '', '#')
@@ -219,11 +222,8 @@ class Navigation extends Component {
 
   handleAnchorClick = (anchorIndex: number) => {
     const currentSection = anchorIndex + 1
-    this.sectionLock = currentSection
+    this.sectionLock = true
     this.setState({ currentSection })
-
-    // Disable section lock automatically after given time
-    setTimeout(() => (this.sectionLock = null), 2000)
   }
 
   render() {
