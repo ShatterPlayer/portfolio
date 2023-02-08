@@ -64,7 +64,10 @@ function Contact() {
           Feel free to send me an e-mail!
         </TextParagraph>
         <motion.span variants={opacityVariants}>
-          <Button color="dark" linkTo="mailto:michalk101010@gmail.com">
+          <Button
+            color="dark"
+            linkTo="mailto:portfolio@shatterplayer.anonaddy.me"
+          >
             Reach me out
           </Button>
         </motion.span>
