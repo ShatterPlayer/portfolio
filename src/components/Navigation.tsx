@@ -169,8 +169,6 @@ class Navigation extends Component {
 
   pageSections: { offsetTop: number }[] = []
 
-  resizeTimeout: ReturnType<typeof setInterval> | null = null
-
   sectionLock: boolean = false
 
   disableSectionLock = debounce(() => {
@@ -215,10 +213,7 @@ class Navigation extends Component {
   }
 
   // Interval reduces unnecessary calculations while resizing the window
-  handleResize = () => {
-    clearInterval(this.resizeTimeout)
-    this.resizeTimeout = setTimeout(this.calculateSectionsPositions, 300)
-  }
+  handleResize = debounce(this.calculateSectionsPositions, 300)
 
   handleAnchorClick = (anchorIndex: number) => {
     const currentSection = anchorIndex + 1
