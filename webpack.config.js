@@ -74,4 +74,10 @@ module.exports = {
       chunks: 'all',
     },
   },
+
+  ignoreWarnings: [
+    {
+      message: /GenerateSW/,
+    },
+  ],
 }
