@@ -114,7 +114,7 @@ function Project({
       <ButtonsContainer variants={opacityVariants}>
         <Button
           color="blue"
-          linkTo={'https:github.com/ShatterPlayer/' + githubProjectName}
+          linkTo={'https://github.com/ShatterPlayer/' + githubProjectName}
         >
           Source code
         </Button>
