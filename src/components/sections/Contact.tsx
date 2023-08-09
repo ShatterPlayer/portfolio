@@ -74,7 +74,7 @@ function Contact() {
       </TextWrapper>
       <SocialsContainer variants={opacityVariants}>
         <Social
-          href="https://www.linkedin.com/in/shatterplayer/"
+          href="https://www.linkedin.com/in/michalkarpierz/"
           target="_blank"
         >
           <Image src={linkedinImage} alt="linkedin" />
