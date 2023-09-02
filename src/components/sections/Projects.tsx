@@ -39,7 +39,7 @@ function Projects() {
         ]}
         image={fastmemeImage}
         githubProjectName="FastMeme"
-        website="https://fastmeme.ml/"
+        website="https://fast-meme.netlify.app/"
       />
     </SectionWrapper>
   )
